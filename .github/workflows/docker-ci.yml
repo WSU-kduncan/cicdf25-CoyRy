@@ -23,7 +23,6 @@ jobs:
       - name: 4. Build and push Docker image
         uses: docker/build-push-action@v6
         with:
-          context: .
+          context: ./web-content/
           push: true 
-          file: ./web-content/Dockerfile
           tags: ${{ secrets.DOCKER_USERNAME }}/elden-cake:latest, ${{ secrets.DOCKER_USERNAME }}/elden-cake:${{ github.sha }}
