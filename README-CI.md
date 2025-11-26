@@ -55,3 +55,60 @@
     * The GitHub Repository Secrets (DOCKER_USERNAME and DOCKER_TOKEN) must be set up in the new repository.
 
 * Workflow File Link: [Link to your .github/workflows/docker-ci.yml file in your repository]
+
+### 3. Testing & Validating
+## How to Test the Workflow
+### To test that your workflow performed its task successfully, monitor the GitHub Actions tab after pushing a commit to the main branch:
+
+* Trigger the Workflow: Push a commit to your repository's main branch (e.g., update the README or your application code).
+
+* Monitor the Run: Navigate to the Actions tab in your GitHub repository.
+
+* Check Status: Click on the most recent run named "Docker CI Build and Push" (or whatever you named your workflow).
+
+* Verify Success: Ensure that all steps within the build_and_push_image job complete with a green check mark (✅). This confirms the image was built locally on the runner and successfully authenticated and pushed to DockerHub.
+## How to Verify the Image in DockerHub
+* Check Tags on DockerHub: Visit your repository page on DockerHub. You should see two new tags:
+
+    * latest (the most recent stable version).
+
+    * A tag matching the Git commit SHA (a long alphanumeric string) that triggered the build.
+
+### To verify that the image works when a container is run using the image:
+* Run the Container locally,  Use the following commands:
+`docker pull coyryan/elden-cake:latest`
+`docker run -d -p 8080:80 --name elden-site-test coyryan/elden-cake:latest`
+* Go to : `http://localhost:8080/` should be able to see the website content, which verifies its working.
+* Link to Your DockerHub Repository:  https://hub.docker.com/r/coyryan/elden-cake
+
+### Part 3 - Semantic Versioning
+## 1. Generating Tags
+* How to see tags in a git repository:
+    * `git tag`
+* How to generate a tag in a git repository to Github:
+    * git tag -a v1.0.0 -m "Comment"
+* How to push a tag in a git repository to Github:
+    * `git push origin v1.0.0`
+
+## 2. Semantic Versioning Container Images with GitHub Actions 
+* Explanation of workflow trigger: 
+    * The workflow is now triggered only when a Git tag matching the pattern `v*.*.*` like v1.0.0 is pushed to GitHub.
+* Explanation of workflow steps: 
+    * The workflow now includes the `docker/metadata-action@v5` which automatically extracts the version from the Git tag  and formats the three required Docker tags. These outputs are then passed to the `docker/build-push-action@v6`.
+* DockerHub Tags: The image is pushed with the following tags:
+
+    * latest (Only generated on a major release,  v1.0.0).
+
+    * major (1).
+
+    * major.minor (1.0).
+
+    * major.minor.patch (1.0.0).
+
+## Explanation  of values that need updated if used in a different repository:
+
+* Changes in workflow: The images: value in the docker/metadata-action must be updated to the new DockerHub repository path (NEW_USER/NEW_IMAGE).
+
+* Changes in repository: The new repository must have the DOCKER_USERNAME and DOCKER_TOKEN secrets configured.
+
+* Link to workflow file in your GitHub repository: todo
