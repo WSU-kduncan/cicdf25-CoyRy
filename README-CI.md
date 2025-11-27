@@ -88,13 +88,13 @@
 ## How to Test the Workflow
 ### To test that your workflow performed its task successfully, monitor the GitHub Actions tab after pushing a commit to the main branch:
 
-* Trigger the Workflow: Push a commit to your repository's main branch (e.g., update the README or your application code).
+* Trigger the Workflow: Push a commit to your repository's main branch like updating the README or your application code/
 
 * Monitor the Run: Navigate to the Actions tab in your GitHub repository.
 
 * Check Status: Click on the most recent run named "Docker CI Build and Push" (or whatever you named your workflow).
 
-* Verify Success: Ensure that all steps within the build_and_push_image job complete with a green check mark (✅). This confirms the image was built locally on the runner and successfully authenticated and pushed to DockerHub.
+* Verify Success: Ensure that all steps within the build_and_push_image job complete with a green check mark. This confirms the image was built locally on the runner and successfully authenticated and pushed to DockerHub.
 ## How to Verify the Image in DockerHub
 * Check Tags on DockerHub: Visit your repository page on DockerHub. You should see two new tags:
 
