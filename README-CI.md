@@ -1,15 +1,42 @@
-## Project 4
+### Project 4: Continuous Integration Project Overview
+
+## Part 4: Project Description & Diagram
+## Project Goal:
+### The  goal of this project is to implement Continuous Integration  pipeline using GitHub Actions and Semantic Versioning. This process ensures that every code release, triggered by a Git tag, automatically builds a verified Docker container image and pushes it to DockerHub with recoverable version tags. This provides reliable version tracking and a mechanism for easy rollback to stable builds.
+
+## What Tools are Used in this Project and What are Their Roles?
+* GitHub: Hosts the code repository and Git tags.
+* GitHub Actions: Continuous Integration Engine, executes the automated workflow.
+* Docker: Containerization, used to define the application's environment (Dockerfile) an run the image locally for testing.
+* DockerHub: Stores the final versioned container images 
+* Docker/metadata-action: Automatically parses Git tags to create the required semantic tags
+* GitHub Secrets: Secure Authentication, Securely stores the DockerHub username and Personal Access Token.
+
+## Diagram
+![Diagram](Project4.png)
+
+## Resources
+* https://docs.github.com/en/actions/get-started/quickstart
+    * Used this for help with setting up GitHub Actions
+* https://docs.github.com/en/actions/how-tos/write-workflows/choose-what-workflows-do/use-secrets
+    * Used this for help with setting up Secrets
+* https://github.com/marketplace/actions/build-and-push-docker-images
+    * Used this for help with the `docker-ci.yml`
+* https://docs.docker.com/build/ci/github-actions/manage-tags-labels/
+    * Used this for help with setting up the tags / labels for github actions in `docker-ci.yml`
+* https://semver.org/
+    * Used this for help with the versioning specification.
 
 ## Part 1- Docker container image
 
 ### Explanation and links to web site content:
 ### Cake Website with the theme of the game Elden Ring
-* ([web-content](https://github.com/WSU-kduncan/ceg3120f25-CoyRy/tree/main/Project3/web-content))
+* ([web-content](https://github.com/WSU-kduncan/cicdf25-CoyRy/tree/main/web-content))
 
 ### Explanation of and link to Dockerfile:
 ### `FROM httpd:2.4` Specifies the base image that the new image will be built upon, which is Appache HTTP Server v 2.4. 
 ### `COPY  . /usr/local/apache2/htdocs/` copies web content into the default document root for Apache.
-* https://github.com/WSU-kduncan/ceg3120f25-CoyRy/blob/main/Project3/web-content/Dockerfile
+* https://github.com/WSU-kduncan/cicdf25-CoyRy/blob/main/web-content/Dockerfile
 
 ### Instructions to build and push container image to your DockerHub repository:
 * use the command `docker build -t coryan/elden-cake:latest .`
@@ -20,7 +47,7 @@
 ## Part 2- GitHub Actions and DockerHub
 ### 1. Configuring GitHub Repository Secrets
 
-### PAT Creation: A Personal Access Token (PAT) is required for secure, non-interactive authentication. Create one on DockerHub under Account Settings > Security > Personal Access Tokens. The recommended scope is Read & Write to allow the CI process to push images.
+### PAT Creation: A Personal Access Token is required for secure, non-interactive authentication. Create one on DockerHub under Account Settings > Security > Personal Access Tokens. The recommended scope is Read & Write to allow the CI process to be able to push and pull images.
 
 ### Repository Secrets: The PAT and your username must be stored as Repository Secrets in your GitHub repository (Settings > Secrets and variables > Actions).
 
@@ -54,7 +81,8 @@
 
     * The GitHub Repository Secrets (DOCKER_USERNAME and DOCKER_TOKEN) must be set up in the new repository.
 
-* Workflow File Link: [Link to your .github/workflows/docker-ci.yml file in your repository]
+* Workflow File Link: 
+    * https://github.com/WSU-kduncan/cicdf25-CoyRy/blob/main/.github/workflows/docker-ci.yml
 
 ### 3. Testing & Validating
 ## How to Test the Workflow
@@ -86,7 +114,7 @@
 * How to see tags in a git repository:
     * `git tag`
 * How to generate a tag in a git repository to Github:
-    * git tag -a v1.0.0 -m "Comment"
+    * `git tag -a v1.0.0 -m "Comment"`
 * How to push a tag in a git repository to Github:
     * `git push origin v1.0.0`
 
@@ -111,4 +139,18 @@
 
 * Changes in repository: The new repository must have the DOCKER_USERNAME and DOCKER_TOKEN secrets configured.
 
-* Link to workflow file in your GitHub repository: todo
+* Link to workflow file in your GitHub repository: 
+    * https://github.com/WSU-kduncan/cicdf25-CoyRy/blob/main/.github/workflows/docker-ci.yml
+
+## 3. Testing and Validating
+### Test that Your Workflow Did its Tasking:
+* Trigger the Workflow by creating and pushing a new tag like `git tag -a v1.0.2 -m "comment"`then  `git push origin v1.0.2`
+* Check the Actions tab on Github, Should see a green check mark that confirms the build succeeded.
+
+## Verify the image in DockerHub works:
+* Use the following commands:   
+    * `docker pull coyryan/elden-cake:1.0.1`
+    * `docker run -d -p 8080:80 --name elden-site coyryan/elden-cake:1.0.1`
+    * Go to : `http://localhost:8080/` should be able to see the website content, which verifies its working.
+* Link to Dockerhub with tags:
+    * https://hub.docker.com/r/coyryan/elden-cake/tags
