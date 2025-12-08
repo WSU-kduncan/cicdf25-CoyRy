@@ -1,0 +1,13 @@
+[Unit]
+Description=Webhook Listener for DockerHub Deployments
+After=network.target
+
+[Service]
+# NOTE: Ensure this path is correct for your EC2 user's home directory!
+ExecStart=/usr/local/bin/webhook -hooks /home/ubuntu/deployment/hooks.json -verbose -port 9000
+Restart=always
+User=ubuntu
+WorkingDirectory=/home/ubuntu/deployment
+
+[Install]
+WantedBy=multi-user.target
