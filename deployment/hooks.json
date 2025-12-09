@@ -3,12 +3,10 @@
     "id": "elden-cake-deploy",
     "execute-command": "/home/ubuntu/deployment/refresh_container.sh",
     "command-working-directory": "/home/ubuntu/deployment",
-    "trigger-rule":
-    {
-      "match":
-      {
-        "type": "payload-secret",
-        "secret": "<Merlin99$%#$@!c>"
+    "trigger-rule": {
+      "match": {
+        "type": "github-secret",
+        "secret": "Merlin99%$#@!c"
       }
     },
     "include-command-output-in-response": true

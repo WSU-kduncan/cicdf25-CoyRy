@@ -4,8 +4,8 @@ IMAGE_NAME="coyryan/elden-cake:latest"
 PORT="8080:80"
 
 # Stop and remove the existing container silently
-docker stop $CONTAINER_NAME > /dev/null 2>&1
-docker rm $CONTAINER_NAME > /dev/null 2>&1
+docker stop $CONTAINER_NAME 
+docker rm -f $CONTAINER_NAME 
 
 # Pull the latest image
 docker pull $IMAGE_NAME
