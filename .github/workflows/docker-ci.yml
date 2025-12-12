@@ -45,10 +45,7 @@ jobs:
     needs: [build_and_push_image]
     steps:
       - name: Deploy docker container webhook
-        uses: CoyRy/webhook-action@master
-        env:
-          WEBHOOK_URL: http://${{ secrets.EC2_PUBLIC_IP }}:9000/hooks/elden-cake-deploy
-
-          data: '{ "secret": "${{ secrets.WEBHOOK_SECRET }}", "repository": "${{ github.repository }}" }'
-
-          HEADERS: '{"Content-Type": "application/json"}'
+        run: |
+          curl -X POST http://${{ secrets.EC2_PUBLIC_IP }}:9000/hooks/elden-cake-deploy \
+          -H 'Content-Type: application/json' \
+          -d '{ "secret": "${{ secrets.WEBHOOK_SECRET }}", "repository": "${{ github.repository }}" }'
