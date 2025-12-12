@@ -41,7 +41,7 @@ jobs:
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
   redeploy:
-    runs-on: ubuntu-18.04
+    runs-on: self-hosted
     needs: [build_and_push_image]
     steps:
       - name: Deploy docker container webhook
