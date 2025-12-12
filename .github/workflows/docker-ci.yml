@@ -41,15 +41,14 @@ jobs:
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
   redeploy:
-      - name: Redeploy - Webhook call
-        runs-on: ubuntu-18.04
-        needs: [docker]
-        steps:
-          - name: Deploy docker container webhook
-            uses: CoyRy/webhook-action@master
-            env:
-              WEBHOOK_URL: http://${{ secrets.EC2_PUBLIC_IP }}:9000/hooks/elden-cake-deploy
+    runs-on: ubuntu-18.04
+    needs: [docker]
+    steps:
+      - name: Deploy docker container webhook
+        uses: CoyRy/webhook-action@master
+        env:
+        WEBHOOK_URL: http://${{ secrets.EC2_PUBLIC_IP }}:9000/hooks/elden-cake-deploy
 
-              data: '{ "secret": "${{ secrets.WEBHOOK_SECRET }}", "repository": "${{ github.repository }}" }'
+        data: '{ "secret": "${{ secrets.WEBHOOK_SECRET }}", "repository": "${{ github.repository }}" }'
 
-              HEADERS: '{"Content-Type": "application/json"}'
+        HEADERS: '{"Content-Type": "application/json"}'
