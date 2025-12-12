@@ -42,7 +42,7 @@ jobs:
           labels: ${{ steps.meta.outputs.labels }}
   redeploy:
     runs-on: ubuntu-18.04
-    needs: [docker]
+    needs: [build_and_push_image]
     steps:
       - name: Deploy docker container webhook
         uses: CoyRy/webhook-action@master
