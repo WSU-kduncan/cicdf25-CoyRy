@@ -1,5 +1,5 @@
 [Unit]
-Description=Webhook Listener for DockerHub Deployments
+Description=Webhook Listener for GitHub Deployments
 After=network.target
 
 [Service]

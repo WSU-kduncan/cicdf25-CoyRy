@@ -12,7 +12,10 @@ To establish a  Continuous Integration  and Continuous Deployment  pipeline that
 ![alt text](<Project 5 Diagram-1.png>)
 
 ## What is not working in this Project:
+Originally it was not working succesfully in the demo yesterday, I worked on it a bit today and was able to get to work. 
 
+Proof: 
+![alt text](image-1.png)
 
 ## Resources:
 * https://github.com/adnanh/webhook
@@ -102,4 +105,4 @@ The payload is sent only when the Continuous Integration process is fully succes
 ### How to verify a successful payload delivery: 
 Use `sudo journalctl -u webhook -f` to monitor on the EC2 instance, after pushing new tag on local system should see a final HTTP 200 status code and the message `finished handling elden-cake-deploy`.
 ### How to validate that your webhook only triggers when requests are coming from appropriate sources: 
-Used github-secret validation type, Github Actions and EC2 listener (`hooks.json`) have a shared secret used for validation. 
+Used github-secret validation type, Github Actions and EC2 listener (`hooks.json`) to have a shared secret used for validation. 

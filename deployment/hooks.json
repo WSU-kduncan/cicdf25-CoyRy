@@ -4,11 +4,28 @@
     "execute-command": "/home/ubuntu/deployment/refresh_container.sh",
     "command-working-directory": "/home/ubuntu/deployment",
     "trigger-rule": {
-      "match": {
-        "type": "github-secret",
-        "secret": "Merlin99%$#@!c"
-      }
-    },
-    "include-command-output-in-response": true
+      "and": [
+        {
+          "match": {
+            "type": "value",
+            "value": "Merlin99%$#@!c",
+            "parameter": {
+              "source": "header",
+              "name": "X-Hook-Secret"
+            }
+          }
+        },
+        {
+          "match": {
+            "type": "value",
+            "value": "WSU-kduncan/cicdf25-CoyRy",
+            "parameter": {
+              "source": "header",
+              "name": "X-Hook-Repository"
+            }
+          }
+        }
+      ]
+    }
   }
 ]
