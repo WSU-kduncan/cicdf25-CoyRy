@@ -12,7 +12,7 @@ To establish a  Continuous Integration  and Continuous Deployment  pipeline that
 ![alt text](<Project 5 Diagram-1.png>)
 
 ## What is not working in this Project:
-Originally it was not working succesfully in the demo yesterday, I worked on it a bit today and was able to get to work. 
+Originally it was not working succesfully in the demo yesterday, was having issues validating the webhook from github.I worked on it a bit today and was able to get to work, updated my `docker-ci.yml` and `hooks.json` with the current working version. 
 
 Proof: 
 ![alt text](image-1.png)
