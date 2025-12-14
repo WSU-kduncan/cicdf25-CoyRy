@@ -47,5 +47,7 @@ jobs:
       - name: Deploy docker container webhook
         run: |
           curl -X POST http://${{ secrets.EC2_PUBLIC_IP }}:9000/hooks/elden-cake-deploy \
-          -H 'Content-Type: application/json' \
-          -d '{"payload": {"secret": "${{ secrets.WEBHOOK_SECRET }}", "repository": "${{ github.repository }}"}}'
+            -H 'Content-Type: application/json' \
+            -H 'X-Hook-Secret: ${{ secrets.WEBHOOK_SECRET }}' \
+            -H 'X-Hook-Repository: ${{ github.repository }}' \
+            -d '{}' # Send a minimal, empty JSON body
